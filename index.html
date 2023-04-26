@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temp.io</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        *{
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url("https://cdn.pixabay.com/photo/2020/01/15/07/14/mountain-climbing-4767088_960_720.jpg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .mainbox{
+            position: relative;
+            border-radius: 20px;
+            padding: 20px;
+            width: 500px;
+            text-align: center;
+            border: 2px solid white;
+            box-shadow: 5px -3px 10px 1px white;
+        }
+        .mainbox::before{
+            position: absolute;
+            top: 0;
+            left: 0;
+            content: "";
+            border-radius: 20px;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            opacity: 0.3;
+            z-index: -1;
+            
+        }
+        .box{
+            margin: 20px 0px;
+        }
+        .midbox{
+            margin: 0;
+        }
+        h1{
+            font-size: 36px;
+            /* margin-bottom: 50px; */
+        }
+        .number{
+            background-color: white;
+            font-size: 15px;
+            border-radius: 10px;
+            padding: 5px 0px;
+            border: 4px solid black;
+            text-align: center;
+        }
+        nav{
+            display: inline-block;
+            color: gray;
+            width: 191px;
+        }
+        .butt{
+            cursor: pointer;
+            border: 2px solid black;
+            border-radius: 10px;
+            padding: 7px 15px;
+            text-align: center;
+            font-size: 15px;
+        }
+        select{
+            margin: 5px 0px;
+            font-size: 15px;
+            border-radius: 10px;
+            padding: 5px 0px;
+            border: 4px solid black;
+            text-align: center;
+        }
+        form{
+            margin: 40px 0px;
+        }
+        .butt:hover{
+            background-color: rgb(232, 232, 232);
+        }
+        
+        .ex{
+            rotate: 90deg;
+        }
+        .fa{
+            font-size: 48px;
+        }
+
+        @media (max-width: 444px){
+        h1{
+            font-size: 25px;
+        }
+        .fa{
+            font-size: 25px;
+        }
+
+        .mainbox{
+            width: 300px;
+        }
+        form {
+            margin: 20px 0px;
+        }
+
+        }
+
+    </style>
+</head>
+<body>
+    <div class="mainbox">
+        <h1>Temperature Converter <i class="fa fa-thermometer" style="color:red"></i> </h1>
+        <form action="#">
+            <div class="box">
+                <input type="number" name="" placeholder="Enter Number" class="number" id="inputval">
+                <select name="mytemp" id="opt1">
+                    <option value="Celcius">Celcius</option>
+                    <option value="Fahrenheit">Fahrenheit</option>
+                    <option value="Kelvin">Kelvin</option>
+                </select>
+            </div>
+
+            <div class="box ansbox">
+                <nav class="number" id="ans"> Value </i> </nav>
+                <select name="mytemp" id="opt2">
+                    <option value="Celcius">Celcius</option>
+                    <option value="Fahrenheit">Fahrenheit</option>
+                    <option value="Kelvin">Kelvin</option>
+                </select>
+            </div>
+        </form>
+        <button type="submit" class="butt" id="submitbutton">Submit</button>
+        <button type="reset" class="butt" id="clearbutton">Clear All</button>
+    </div>
+</body>
+<script>
+    submitbutton.addEventListener("click",function(){
+
+        // same units
+        let dg1= document.getElementById("opt1").selectedIndex;
+        let dg2= document.getElementById("opt2").selectedIndex;
+        let dg1value= document.getElementById("opt1")[dg1].value
+        let dg2value= document.getElementById("opt2")[dg2].value
+        
+        let value= inputval.value
+        value= parseFloat(value);
+        if(Number.isNaN(value)){
+            document.getElementById("ans").innerHTML= "Value";
+        }
+        else if(dg1value == dg2value){
+            document.getElementById("ans").innerHTML= inputval.value;
+        }
+        else{
+            // Celcius to Fahrenheit
+            if(dg1value=="Celcius" && dg2value=="Fahrenheit"){
+                let sum = 32+ (9*value)/5
+                sum= sum.toFixed(3)
+                document.getElementById("ans").innerHTML= sum
+            }
+            else if(dg1value=="Fahrenheit" && dg2value=="Celcius"){
+                let sum = 5*(value-32)/9
+                sum= sum.toFixed(3)
+                document.getElementById("ans").innerHTML= sum
+            }
+
+            // Celcius to kelvin
+            else if(dg1value=="Celcius" && dg2value=="Kelvin"){
+                let sum = value+273
+                sum= sum.toFixed(3)
+                document.getElementById("ans").innerHTML= sum
+            }
+            else if(dg1value=="Kelvin" && dg2value=="Celcius"){
+                let sum = value-273
+                sum= sum.toFixed(3)
+                document.getElementById("ans").innerHTML= sum
+            }
+
+            // Fahrenheit to Kelvin
+            else if(dg1value=="Fahrenheit" && dg2value=="Kelvin"){
+                let sum = 273 + 5*(value-32)/9
+                sum= sum.toFixed(3)
+                document.getElementById("ans").innerHTML= sum
+            }
+            else if(dg1value=="Kelvin" && dg2value=="Fahrenheit"){
+                let sum = 32 + 9*(value-273)/5
+                sum= sum.toFixed(3)
+                document.getElementById("ans").innerHTML= sum
+            }
+
+        }
+
+    })
+
+    clearbutton.addEventListener("click",()=>{
+        document.getElementById("ans").innerHTML="Value"
+        inputval.value=""
+    })
+
+</script>
+</html>
